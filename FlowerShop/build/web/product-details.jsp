@@ -55,13 +55,6 @@
                                 <a href="login.jsp" class="btn btn-success">Buy</a>
                             </c:if>
 
-                            <c:if test="${sessionScope.user.getRole() == 3}" >
-                                <a href="cart.jsp"><i class="btn btn-danger"></i> </a>
-                            </c:if>
-
-                            <c:if test="${sessionScope.user.getRole() == null}" >
-                                <a href="login.jsp"><i class="btn btn-danger">Cart</i></a>
-                            </c:if>
                         </div>
                     </div>
                 </div>
