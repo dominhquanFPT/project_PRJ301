@@ -81,7 +81,7 @@
                                                     <ul class="featured__item__pic__hover">
                                                         <c:if test="${sessionScope.user.getRole() ==  3}">                                                           
                                                             <li><a href="cart?productID=${p.getID()}"><i class="fa fa-shopping-cart"></i></a></li>
-                                                            <li><a href="buy?productID=${p.getID()}"><i>Buy</i></a></li>
+                                                            <li><a href="checkout?productID=${p.getID()}"><i>Buy</i></a></li>
                                                                 </c:if>
                                                                 <c:if test="${sessionScope.user == null }">                                                           
                                                             <li><a href="login.jsp"><i class="fa fa-shopping-cart"></i></a></li>
