@@ -110,7 +110,7 @@
                             <ul>
                                 <li>Total <span>${total}_VND</span></li>
                             </ul>
-                            <a href="checkout.jsp" class="primary-btn">Countine to Buy</a>
+                            <a href="checkoutByCart.jsp" class="primary-btn">Countine to Buy</a>
                         </div>
                     </div>
                 </div>
