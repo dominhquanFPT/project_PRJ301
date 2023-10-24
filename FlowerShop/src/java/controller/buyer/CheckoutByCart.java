@@ -57,7 +57,7 @@ public class CheckoutByCart extends HttpServlet {
         List<Orders> listO = od.getMyOrders(u.getID());
         request.setAttribute("listO", listO);
         
-        request.getRequestDispatcher("order.jsp").forward(request, response);
+        request.getRequestDispatcher("orderList.jsp").forward(request, response);
 
     }
 
