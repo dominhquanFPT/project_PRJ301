@@ -14,7 +14,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                            <li><i class="fa fa-envelope"></i> abc123@fpt.edu.vn</li>
                         </ul>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             <div>English</div>
                             <span class="arrow_carrot-down"></span>
                             <ul>
-                                <li><a href="#">Spanis</a></li>
+                                <li><a href="#">Vietnamese</a></li>
                                 <li><a href="#">English</a></li>
                             </ul>
                         </div>
@@ -55,42 +55,80 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    <a href="home"><img src="img/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
-                        <li><a href="./shop-grid.html">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li class="active"><a href="home">Home</a></li>
+                            <c:if test="${sessionScope.user.getRole() ==  2 || sessionScope.user.getRole() ==  1}">
+
+                            <li><a href="vieworder">View Order</a>
+                            </c:if>
+                                
+                            <c:if test="${sessionScope.user.getRole() ==  3 }">
+
+                            <li><a href="myorder">My Order</a>
+                            </c:if>
+
+                            <c:if test="${sessionScope.user.getRole() ==  1}">
+
+                            <li>
+                                <a href="#">Manager Products</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="listproduct">Manager Products</a></li>
+                                    <li class="dropdown" onmouseover="showSubMenu()" onmouseout="hideSubMenu()">
+                                        <a href="#">Manager Cate</a>
+                                        <ul class="submenu" id="submenu">
+                                            <li><a href="add_cate.jsp">Add Category</a></li>
+                                            <li><a href="editcate">Edit Category</a></li>
+                                            <li><a href="deletecate">Delele Category</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                        </c:if>
+
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3">
-                <div class="header__cart">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                    </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
+            <c:if test="${sessionScope.user.getRole() == 3 || sessionScope.user.getRole() == null}">
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <c:if test="${sessionScope.user.getRole() == 3}" >
+                                <li><a href="cart.jsp"><i class="fa fa-shopping-bag"></i> <span>${num}</span></a></li>
+                                </c:if>
+
+                            <c:if test="${sessionScope.user.getRole() == null}" >
+                                <li><a href="login.jsp"><i class="fa fa-shopping-bag"></i> <span>${num}</span></a></li>
+                                </c:if>
+
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            </c:if>
+
         </div>
         <div class="humberger__open">
             <i class="fa fa-bars"></i>
         </div>
     </div>
+    <script>
+        function showSubMenu() {
+            var submenu = document.getElementById('submenu');
+            submenu.style.display = "block";
+        }
+
+        function hideSubMenu() {
+            var submenu = document.getElementById('submenu');
+            submenu.style.display = "none";
+        }
+
+    </script>
 </header>
+
 <!-- Header Section End -->
-
-
