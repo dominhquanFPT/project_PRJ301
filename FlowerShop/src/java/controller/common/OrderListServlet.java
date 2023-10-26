@@ -23,7 +23,7 @@ public class OrderListServlet extends HttpServlet {
 
         OrdersDAO od = new OrdersDAO();
         List<Orders> listO;
-        if (u.getRole() == 1) { // neu la admin, lay ra danh sach tat ca order
+        if (u.getRole() == 1 || u.getRole() == 2) { // neu la admin, lay ra danh sach tat ca order
             listO = od.getAllOrders();
         } else { // neu la customer, lay ra nhung don hang cua chinh minh
             listO = od.getMyOrders(u.getID());
