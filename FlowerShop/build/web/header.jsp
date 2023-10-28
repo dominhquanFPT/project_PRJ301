@@ -62,8 +62,10 @@
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="home">Home</a></li>
+                            <c:if test="${sessionScope.user != null}">
                             <li><a href="orderlist">Order List</a>
-                            <c:if test="${sessionScope.user.getRole() ==  1}">
+                            </c:if>                            
+                                <c:if test="${sessionScope.user.getRole() ==  1}">
 
                             <li>
                                 <a href="#">Manager Products</a>
