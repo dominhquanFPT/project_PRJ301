@@ -6,7 +6,7 @@ import java.util.List;
 import model.Products;
 
 public class ProductsDAO extends MyDAO {
-    
+
     //lay ra danh sách tat ca san pham
     public List<Products> getAllProducts() {
         List<Products> productList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class ProductsDAO extends MyDAO {
 
         return productList;
     }
-    
+
     // lay ra san pham theo category
     public List<Products> getProductsByCategoryID(int categoryID) {
         List<Products> productList = new ArrayList<>();
@@ -60,8 +60,8 @@ public class ProductsDAO extends MyDAO {
 
         return productList;
     }
-    
-     // lay san pham bang id
+
+    // lay san pham bang id
     public Products getProductByID(int productID) {
         xSql = "SELECT * FROM Products WHERE ID = ?";
         try {
@@ -87,10 +87,9 @@ public class ProductsDAO extends MyDAO {
 
         return null;
 
-   
     }
-    
-      // hàm search san pham
+
+    // hàm search san pham
     public List<Products> searchProductByName(String text) {
         List<Products> productList = new ArrayList<>();
         xSql = "SELECT * FROM Products WHERE Name LIKE ?";
@@ -116,6 +115,58 @@ public class ProductsDAO extends MyDAO {
         }
 
         return productList;
+    }
+
+    // hàm thêm moi 1 san pham
+    public void addProduct(Products product) {
+        xSql = "INSERT INTO Products (Name, Description, Price, Image, CategoryID) VALUES (?, ?, ?, ?, ?)";
+        try {
+            ps = con.prepareStatement(xSql);
+            ps.setString(1, product.getName());
+            ps.setString(2, product.getDescription());
+            ps.setInt(3, product.getPrice());
+            ps.setString(4, product.getImage());
+            ps.setInt(5, product.getCategoryID());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // hàm sua san pham
+    public void editProduct(int productID, Products updatedProduct) {
+        xSql = "UPDATE Products SET Name = ?, Description = ?, Price = ?, Image = ?, CategoryID = ? WHERE ID = ?";
+        try {
+            ps = con.prepareStatement(xSql);
+            ps.setString(1, updatedProduct.getName());
+            ps.setString(2, updatedProduct.getDescription());
+            ps.setInt(3, updatedProduct.getPrice());
+            ps.setString(4, updatedProduct.getImage());
+            ps.setInt(5, updatedProduct.getCategoryID());
+            ps.setInt(6, productID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // hàm xóa san pham
+    public void deleteProduct(int productID) {
+        try {
+            // Cập nhật các mặt hàng liên quan trong bảng OrderItems, đặt ProductID thành null
+            String updateOrderItemsSql = "UPDATE OrderItems SET ProductID = null WHERE ProductID = ?";
+            PreparedStatement updateOrderItemsPs = con.prepareStatement(updateOrderItemsSql);
+            updateOrderItemsPs.setInt(1, productID);
+            updateOrderItemsPs.executeUpdate();
+
+            // Xóa sản phẩm từ bảng Products
+            String deleteProductSql = "DELETE FROM Products WHERE ID = ?";
+            PreparedStatement deleteProductPs = con.prepareStatement(deleteProductSql);
+            deleteProductPs.setInt(1, productID);
+            deleteProductPs.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
